@@ -61,13 +61,15 @@
 
           <div class="input-group my-5 w-75 align-self-end">
             <input
+              v-model="newTaskText"
               type="text"
               class="form-control"
-              placeholder="Recipient's username"
-              aria-label="Recipient's username"
+              placeholder="New Task"
+              aria-label="New Task"
+              @keyUp.enter="addTask"
               aria-describedby="button-addon2" />
-
             <button
+              @click="addTask()"
               class="btn btn-primary"
               type="button"
               id="button-addon2">
@@ -77,15 +79,18 @@
         </section>
 
         <!-- TASK LIST -->
-        <section class="">
+        <section class="mb-5">
           <h2 class="fw-semibold">TASKS</h2>
 
           <ul class="list-group">
             <li
               v-for="(task, index) of tasks"
-              :class="(tasks[index].done) ? 'text-decoration-line-through' : ''"
-              class="list-group-item d-flex justify-content-between align-items-center">
-              {{tasks[index].task}}
+              @click="completedTask(index)"
+              :class="(tasks[index].done) ? 'task-done' : ''"
+              class="list-group-item">
+              {{tasks[index].text}}
+
+              <!-- PULSANTE RIMOZIONE TASK  -->
               <span
                 @click="removeTask(index)"
                 class="badge bg-primary rounded-pill">
